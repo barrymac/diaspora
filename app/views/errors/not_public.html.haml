@@ -1,0 +1,40 @@
+-# Copyright (c) 2010-2012, Diaspora Inc. This file is
+-# licensed under the Affero General Public License version 3 or later. See
+-# the COPYRIGHT file.
+
+- content_for :head do
+  :css
+    #big-number {
+      font-family: Roboto-BoldCondensed, Helvetica, Arial, sans-serif;
+      font-size: 250px;
+      line-height: 1em;
+      text-align: center;
+      padding-top: 100px;
+      text-shadow: 0 2px 0 #fff, 0 -1px 0 #999;
+      color: #ddd;
+    }
+    .transparent {
+      -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+      filter: alpha(opacity=80);
+      -moz-opacity: 0.8;
+      -khtml-opacity: 0.8;
+      opacity: 0.8;
+    }
+    #content {
+      font-family: Roboto, Helvetica, Arial, sans-serif;
+      text-align: center;
+      text-shadow: 0 1px 0 #fff;
+      font-size: 1.25em;
+      line-height: 1.5em;
+      color: #666;
+      position: absolute;
+      left: 0; right: 0;
+    }
+    
+#big-number.transparent
+  404
+
+#content
+  = t('error_messages.post_not_public')
+  %br
+  = t('error_messages.login_try_again', :login_link => new_user_session_path).html_safe

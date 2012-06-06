@@ -153,6 +153,9 @@ class Post < ActiveRecord::Base
              Post.where(key => id, :public => true).includes(:author, :comments => :author).first
            end
 
+    # is there a private post with that id?
+    raise(Diaspora::NonPublic) if post.nil? && Post.count(:conditions => {key=>id}) > 0
+
     post || raise(ActiveRecord::RecordNotFound.new("could not find a post with id #{id}"))
   end
 end

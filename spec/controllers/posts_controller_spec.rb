@@ -56,7 +56,9 @@ describe PostsController do
       end
 
       it '404 if the post is missing' do
-        expect { get :show, :id => 1234567 }.to raise_error(ActiveRecord::RecordNotFound)
+        expect {
+          get :show, :id => 1234567
+        }.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
 
@@ -85,7 +87,8 @@ describe PostsController do
 
       it 'does not show a private post' do
         status = alice.post(:status_message, :text => "hello", :public => false, :to => 'all')
-        expect { get :show, :id => status.id }.to raise_error(ActiveRecord::RecordNotFound)
+        get :show, :id => status.id
+        response.status.should == 404
       end
 
       # We want to be using guids from now on for this post route, but do not want to break
@@ -110,7 +113,7 @@ describe PostsController do
       end
     end
   end
-  
+
   describe 'iframe' do
     it 'contains an iframe' do
       get :iframe, :id => @message.id
@@ -126,7 +129,8 @@ describe PostsController do
     end
 
     it 'returns a 404 response when the post is not found' do
-      expect { get :oembed, :url => "/posts/#{@message.id}" }.to raise_error(ActiveRecord::RecordNotFound)
+      get :oembed, :url => "/posts/#{@message.id}"
+      response.status.should == 404
     end
   end
 
